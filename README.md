@@ -1,0 +1,1 @@
+Codifier is a very simple encoder, it aims to create a random dictionary based on ascii, so its harder do de-encrypt your secrets. The "password" is a combinacion of 94 numbers, where every numbers mean a certain digit of the ascii, this may change in the future to make it more private and secure.
