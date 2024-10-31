@@ -37,7 +37,7 @@ def maper(method: str, numberList: list) -> dict:
     characterDictionary = {i: None for i in methods[method]}
     temporalIndex = 0
     for i in characterDictionary:
-        characterDictionary[i] = numberList[temporalIndex]
+        characterDictionary[i] = chr(numberList[temporalIndex]) #This will return: normalCharacter > encryptedCharacter
         temporalIndex += 1
     return characterDictionary
 def codeGenerator() -> list:
@@ -53,9 +53,48 @@ def codeGenerator() -> list:
     return method, randomList
 def codifier(method: str, password: list, character: str) -> str:
     """
-    method variable should contain the method used to create the dictionary, for example:
-    alfaalfa: {chr(i): i for i in range(32, 127)}
+    method variable should contain the method used to create the dictionary
+    password variable should contain the password given after creating a dictionary
+    character variable should contain the character that is going to be encrypted
     """
-    password = codeGenerator()
-#TODO: DELETE AFTER
-print(maper(*codeGenerator()))
+    actualMaper = maper(method, password)
+    return actualMaper[character]
+def decodifier(method: str, password: list, character: str) -> str:
+    """
+    method variable should contain the method used to create the dictionary
+    password variable should contain the password given after creating a dictionary
+    character variable should contain the character that is going to be encrypted
+    """
+    actualMaper = maper(method, password)
+    invertedMaper = {v : k for k, v in zip(actualMaper.keys(), actualMaper.values())}
+    return invertedMaper[character]
+while __name__=="__main__":
+    print("Visual module.")
+    print("Avaliable options:")
+    print("1.- Generate password.")
+    print("2.- Codify a message.")
+    print("3.- Decodify a message.")
+    choise = input("Enter the number choised: ")
+    if choise == "1":
+        method, password = codeGenerator()
+        print(f"The method is: {method}\nThe password is: {password}")
+    elif choise == "2":
+        method = input("Enter the method used to create the dictionary: ")
+        password = input("Enter the password used to create the dictionary(1, 2, 3, ...): ")
+        password = password.split(", ")
+        password = [int(i) for i in password]
+        word = input("Enter the word to codify: ")
+        finalWord = ""
+        for i in range(len(word)):
+            finalWord += codifier(method, password, word[i])
+        print(f"Codified message: {finalWord}")
+    elif choise == "3":
+        method = input("Enter the method used to create the dictionary: ")
+        password = input("Enter the password used to create the dictionary(1 2 3 ...): ")
+        password = password.split(", ")
+        password = [int(i) for i in password]
+        word = input("Enter the word to decodify: ")
+        finalWord = ""
+        for i in range(len(word)):
+            finalWord += decodifier(method, password, word[i])
+        print(f"Decodified message: {finalWord}")
