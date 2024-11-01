@@ -40,7 +40,7 @@ def maper(method: str, numberList: list) -> dict:
         characterDictionary[i] = chr(numberList[temporalIndex]) #This will return: normalCharacter > encryptedCharacter
         temporalIndex += 1
     return characterDictionary
-def codeGenerator() -> list:
+def codeGenerator() -> tuple:
     from random import randint
     methodCodeName = ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliett", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray", "Yankee", "Zulu"]
     normalList = [i for i in range(32, 127)]
@@ -52,19 +52,9 @@ def codeGenerator() -> list:
         method += methodCodeName[randint(0, len(methodCodeName) - 1)]
     return method, randomList
 def codifier(method: str, password: list, character: str) -> str:
-    """
-    method variable should contain the method used to create the dictionary
-    password variable should contain the password given after creating a dictionary
-    character variable should contain the character that is going to be encrypted
-    """
     actualMaper = maper(method, password)
     return actualMaper[character]
 def decodifier(method: str, password: list, character: str) -> str:
-    """
-    method variable should contain the method used to create the dictionary
-    password variable should contain the password given after creating a dictionary
-    character variable should contain the character that is going to be encrypted
-    """
     actualMaper = maper(method, password)
     invertedMaper = {v : k for k, v in zip(actualMaper.keys(), actualMaper.values())}
     return invertedMaper[character]
